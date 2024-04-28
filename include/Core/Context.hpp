@@ -36,6 +36,7 @@ public:
     void Setup();
     void Update();
 
+    static SDL_Renderer *m_Renderer;
 private:
     SDL_Window *m_Window;
     SDL_GLContext m_GlContext;

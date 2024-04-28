@@ -96,6 +96,7 @@ set(EXAMPLE_FILES
     ${EXAMPLE_DIR}/src/GiraffeText.cpp
     ${EXAMPLE_DIR}/src/Cat.cpp
     ${EXAMPLE_DIR}/src/main.cpp
+    ${EXAMPLE_DIR}/src/Engine.cpp
 
     ${EXAMPLE_DIR}/include/App.hpp
     ${EXAMPLE_DIR}/include/Giraffe.hpp

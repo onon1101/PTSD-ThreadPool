@@ -8,6 +8,7 @@
 #include "Cat.hpp"
 #include "Giraffe.hpp"
 #include "GiraffeText.hpp"
+#include "Engine.h"
 
 class App {
 public:
@@ -32,6 +33,7 @@ private:
 
     std::shared_ptr<Cat> m_Cat = std::make_shared<Cat>();
     Util::Renderer m_Root;
+    ThreadPool m_ThreadPool;
 
     bool showDemoWindow = true;
 };

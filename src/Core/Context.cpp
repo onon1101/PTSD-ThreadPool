@@ -68,6 +68,8 @@ Context::Context() {
         LOG_ERROR(reinterpret_cast<const char *>(glewGetErrorString(err)));
     }
 
+    m_Renderer = SDL_CreateRenderer(m_Window, -1 , SDL_RENDERER_ACCELERATED);
+
 #ifndef __APPLE__
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -163,3 +165,5 @@ void Context::SetWindowIcon(const std::string &path) {
     SDL_SetWindowIcon(m_Window, image);
 }
 } // namespace Core
+
+SDL_Renderer* Core::Context::m_Renderer = nullptr;

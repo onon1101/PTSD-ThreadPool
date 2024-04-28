@@ -5,6 +5,8 @@
 #include "Util/Keycode.hpp"
 #include "Util/Logger.hpp"
 
+#include <Core/Context.hpp>
+
 #include "GiraffeText.hpp"
 
 void App::Start() {
@@ -18,10 +20,65 @@ void App::Start() {
     m_Root.AddChild(m_Giraffe);
     m_Root.AddChild(m_Cat);
 
+    m_ThreadPool.QueueJob([] {
+        {
+            std::size_t sum = 0;
+            for (std::size_t i = 0; i < 1e8; ++i) {
+                sum += i;
+                LOG_INFO("i'm thread: {} current counter: {}", 1, i);
+            }
+        }
+    });
+    m_ThreadPool.QueueJob([] {
+        {
+            std::size_t sum = 0;
+            for (std::size_t i = 0; i < 1e8; ++i) {
+                sum += i;
+                LOG_INFO("i'm thread: {} current counter: {}", 2, i);
+            }
+        }
+    });
+    m_ThreadPool.QueueJob([] {
+        {
+            std::size_t sum = 0;
+            for (std::size_t i = 0; i < 1e8; ++i) {
+                sum += i;
+                LOG_INFO("i'm thread: {} current counter: {}", 3, i);
+            }
+        }
+    });
+    m_ThreadPool.QueueJob([] {
+        {
+            std::size_t sum = 0;
+            for (std::size_t i = 0; i < 1e8; ++i) {
+                sum += i;
+                LOG_INFO("i'm thread: {} current counter: {}", 4, i);
+            }
+        }
+    });
+    m_ThreadPool.QueueJob([] {
+        {
+            std::size_t sum = 0;
+            for (std::size_t i = 0; i < 1e8; ++i) {
+                sum += i;
+                LOG_INFO("i'm thread: {} current counter: {}", 5, i);
+            }
+        }
+    });
+
+    m_ThreadPool.Start();
+
     m_CurrentState = State::UPDATE;
 }
 
 void App::Update() {
+
+//    std::size_t sum = 0;
+//    for (std::size_t i = 0; i < 1e8; ++i) {
+//        sum += i;
+//        LOG_INFO("i'm thread: {} current counter: {}", 3, i);
+//    }
+
     if (Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB)) {
         LOG_DEBUG("Left button pressed");
     }
@@ -62,6 +119,7 @@ void App::Update() {
     // press SPACE to toggle demo window
     if (Util::Input::IsKeyDown(Util::Keycode::SPACE)) {
         showDemoWindow = !showDemoWindow;
+        m_ThreadPool.Stop();
     }
     if (showDemoWindow) {
         ImGui::ShowDemoWindow();
